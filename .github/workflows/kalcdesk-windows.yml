@@ -2,7 +2,7 @@ name: KALCDESK - Windows
 
 # Gera o instalador do KALCDESK para Windows (x64).
 # Execute em: Actions > "KALCDESK - Windows" > Run workflow.
-# Antes, cadastre em Settings > Secrets and variables > Actions:
+# Opcional (servidor proprio), cadastre em Settings > Secrets and variables > Actions:
 #   KALC_SERVER = IP ou dominio do servidor (ex.: 123.45.67.89)
 #   KALC_KEY    = chave publica do servidor (conteudo do arquivo id_ed25519.pub)
 
@@ -35,8 +35,7 @@ jobs:
         shell: bash
         run: |
           if [ -z "$KALC_SERVER" ] || [ -z "$KALC_KEY" ]; then
-            echo "::error::Cadastre os segredos KALC_SERVER e KALC_KEY antes de gerar o KALCDESK."
-            exit 1
+            echo "::notice::Sem KALC_SERVER/KALC_KEY: o KALCDESK vai usar os servidores publicos do RustDesk."
           fi
 
       - name: Export GitHub Actions cache environment variables
